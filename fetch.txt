@@ -1,3 +1,5 @@
 This file is created to ditinguish between git fetch and git pull
 Adding this line to simulate an buggy code
-The third linr
+The third line
+This line is to simulate that the production is broken with the push
+  faulty printf statements
