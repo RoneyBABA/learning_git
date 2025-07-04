@@ -1,3 +1,3 @@
 This file is created to ditinguish between git fetch and git pull
-The second line
-The third line
+Adding this line to simulate an buggy code
+The third linr
