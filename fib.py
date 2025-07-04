@@ -11,3 +11,5 @@ else:
         b=c
     
 print ('fibonacci Value at', num, 'palce of the sequnce is', c)
+
+#i fixed the bug here
