@@ -1,0 +1,2 @@
+This repository was created to demonstrate my learnings about GIT and GitHub. The text file 'my_learnings.txt' contains all of my learnings. 
+Ignore all other files as they were created for the sole purpose of learning and do not add any value.
