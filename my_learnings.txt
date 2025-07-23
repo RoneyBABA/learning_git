@@ -26,8 +26,7 @@ Basic Commands
 		   Ex: document_test.py, added feature 12, tests_cases A B C
 
 
-**OBSERVATION------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**----
-
+**OBSERVATION------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**----------
 [master (root-commit) 562c0c9] This is my first commit via terminal
  1 file changed, 3 insertions(+)
  create mode 100644 hello.py
@@ -53,8 +52,7 @@ last 3 bits are permission of file categorized as (Owner/Group/Others):
 
 here 100644 means 'Regular File' with rw-r--r--
 040754 means a directory 'Directory' with permissions rwxrx-r--
-------------**------------**------------**------------**------------**------------**------------**------------**------------**----------**----------**----------**---------
-
+------------**------------**------------**------------**------------**------------**------------**------------**------------**----------**----------**----------**_
 
 git log
 --------
@@ -63,8 +61,8 @@ git log
 		1. git log --oneline (rec)
 		2. git log --graph
 		3. git log --decorate=full
-		4. git log decorate=short (default)
-		5. git log decorate=no 
+		4. git log --decorate=short (default)
+		5. git log --decorate=no 
 		6. git log --graph --oneline (rec)
 		7. git log --graph --decorate=full (rec for debuggin)
  
@@ -95,16 +93,17 @@ GITHUB
 		2. git push -u origin main
 		3. git pull -u origin main	
 		5. git clone <//Repo_link>  	       // It initializes, makes files as well as pulls the files  
-		6. git remote -v 		       // TO view Push and fetch origin) 
-**NOTE------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**-------
+		6. git remote -v 		       // TO view Push and fetch origin 
+**NOTE------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**---
 Creating branches solely depends on the head pointer
 If branch is created while head points to main, The branch contains code from main
-and if you are in br1 aand git branch br2 is used again, br2 will contain the code from br1
+and if you are in br1 and git branch br2 is used again, br2 will contain the code from br1
 
 To ensure the branch is connected to the correct root, perform:
 	 git branch <newBranch> <oldBranch>
 		Ex. git checkout -b featureBranch main (creates as well as moves to)
-**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**-----------
+**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**-------
+
 ->Exercise
 Modify the files, commit and sync up the changes
 	-> git commit -a -m 'Updated fib.py'
@@ -126,7 +125,7 @@ git merge
 	2. git merge br2
 	3. git push -u origin main
 
-if you on br2 (git pull) will clone br2 [be on the code version desired and exec 'git pull']
+if you on br2 (git pull) will clone br2 on br2 [be on the desired code version and exec 'git pull']
 
 
 Merge conflicts
