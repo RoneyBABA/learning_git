@@ -1,0 +1,244 @@
+GIT stands for Global Information Tracker and is a distributed Version Control System
+It is build on Linux (hence the similarities in syntax)
+
+Porcelain GIT commands                    VS       Plumbing GIT commands
+High level commands and are usually used        low level commands and are not colloquially known
+git add, git checkout, git log			ex : git write-tree, git commit-tree, and git update-ref
+
+
+Prerequisites
+--------------
+	1.  Git tracks the version history as a tree
+	2.  The commit does not only takes the screenshot of (Deltas or differences), but of the full repository
+	3.  Staging an object means that git tracks the state of those versions, one can add and remove them from the stage
+
+
+Basic Commands
+--------------
+	1. git init
+		   git init used to initialize a git file, git clone has it included
+	2. git status
+		   Let's us know which branch we are on, and gives us the list of unstaged files
+	3. git add  (to track/ stage the objects)
+		  git add . (It only stages the file of 1 directory which is being accessed)
+	4. git commit -m '//message'
+		   Commit message usually fills the blank -- "If merged to main branch, it will add ______"  
+		   Ex: document_test.py, added feature 12, tests_cases A B C
+
+
+**OBSERVATION------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**----
+
+[master (root-commit) 562c0c9] This is my first commit via terminal
+ 1 file changed, 3 insertions(+)
+ create mode 100644 hello.py
+
+562c0c9 - is the hash that is used to uniquely identify and track the commit which is essentially a snapshot of the repository at the given point of time
+100644
+first 3 bits tell us about the file type :
+| Code  | File Type     |
+| ----- | ------------- |
+| `100` | Regular file  |
+| `040` | Directory     |
+| `120` | Symbolic link |
+| `160` | Git submodule |
+
+last 3 bits are permission of file categorized as (Owner/Group/Others):
+| Octal | Binary | Permissions | Meaning                  |
+| ----- | ------ | ----------- | ------------------------ |
+| `7`   | `111`  | `rwx`       | Read, write, and execute |
+| `6`   | `110`  | `rw-`       | Read and write           |
+| `5`   | `101`  | `r-x`       | Read and execute         |
+| `4`   | `100`  | `r--`       | Read only                |
+| `0`   | `000`  | `---`       | No permission            |
+
+here 100644 means 'Regular File' with rw-r--r--
+040754 means a directory 'Directory' with permissions rwxrx-r--
+------------**------------**------------**------------**------------**------------**------------**------------**------------**----------**----------**----------**---------
+
+
+git log
+--------
+	It is used to view the commit history of the branch you are in.
+	by addin few parameters we to the command we can really use the command to it's potential
+		1. git log --oneline (rec)
+		2. git log --graph
+		3. git log --decorate=full
+		4. git log decorate=short (default)
+		5. git log decorate=no 
+		6. git log --graph --oneline (rec)
+		7. git log --graph --decorate=full (rec for debuggin)
+ 
+
+git checkout
+-----------
+	To have a peak into the state of the machine before commit (Visiting a check-point)  [The pointer to the latest version is known as Head]
+		1. git checkout <#commit_hash> (often found in git log)
+		2. git checkout main / git checkout master (Brings you to the current Version)
+		3. git checkout -f master/main (forcefully)
+
+
+git branch
+-----------
+	To create a branch from the main tree, to work freely and not break the production, A branch contains all the features above its merge base/ parent node
+		1. git branch br1       //create
+			git checkout br1 	// to move to new branch
+		--> git checkout -b br1	(rec)	       //To create a new branch and move to it
+		2. git branch -m <oldName> <newName>   // To change the branch name
+		3. git branch -d <Branch name>         // To delete the Branch
+		4. git merge-base <#br1> <#br2>	       // To find the common ancestor of the br1 and br2
+
+ 
+GITHUB
+-------
+	GITHUB is a cloud based platform that provides an remote server to store git files
+		1. git remote add origin <//Repo_link>
+		2. git push -u origin main
+		3. git pull -u origin main	
+		5. git clone <//Repo_link>  	       // It initializes, makes files as well as pulls the files  
+		6. git remote -v 		       // TO view Push and fetch origin) 
+**NOTE------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**-------
+Creating branches solely depends on the head pointer
+If branch is created while head points to main, The branch contains code from main
+and if you are in br1 aand git branch br2 is used again, br2 will contain the code from br1
+
+To ensure the branch is connected to the correct root, perform:
+	 git branch <newBranch> <oldBranch>
+		Ex. git checkout -b featureBranch main (creates as well as moves to)
+**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**-----------
+->Exercise
+Modify the files, commit and sync up the changes
+	-> git commit -a -m 'Updated fib.py'
+	-> git push   			//Once the upstream is set up
+	-> git push -u origin br2 	//Then to sync the changes to the remote repo again, perform
+
+	->Once the upstream is done setting up we cand directly execute
+		git push or git pull
+
+git clone copies all the files and directories from the remote, git pull is used to update
+	-> git clone is usually used for the first time then use git pull to regularly update 
+
+
+git merge
+----------
+	Used to merge a branch to its' ancestorial branch
+//Merging a branch locally
+	1. git checkout main
+	2. git merge br2
+	3. git push -u origin main
+
+if you on br2 (git pull) will clone br2 [be on the code version desired and exec 'git pull']
+
+
+Merge conflicts
+----------------
+	Mostly due to change in same lines of code by multiple contributors and hence not git cant decide on which state to keep
+		-> we update the repo and then merge the main to our local branch
+		-> Resolve the conflicts
+
+
+git fetch
+---------
+	git pull fetches the file from origin and merges it to the local branch, which is not recommended if the merge conflict exist
+	Hence, We use git fetch that fetches the file from the origin to our local working directory, but does not merge it and keeps our version safe
+
+| git fetch | Only **downloads** changes (safe & passive) |
+| git pull  | **Downloads and merges** into your branch   |
+
+	-> Once we fetch the files we can safely differentiate between the two code bases
+
+
+git diff
+--------
+	 Differentiate two branches to resolve the conflict
+		1. git diff <br1> <br2>
+**OBSERVATION------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**----
+
+git diff main origin/main
+diff --git a/fetch.txt b/fetch.txt
+deleted file mode 100644
+index 0000000.....0267501
+--- a/fetch.txt
++++ /dev/null
+@@ -1 +1,3 @@
+-This file is created to ditinguish between git fetch and git pull
+\ No newline at end of file
++This file is created to ditinguish between git fetch and git pull
++The second line
++The third line
+
+
+Here we check for the difference between local/main and origin/main :
+	-> Since we have executed git fetch statement it ensures that the file is not merged in the local directories
+	-> The command here looks for the fetch file which is committed in remote repo only. a/fetch.txt represents the local directory and b/fetch,txt refers one on the remote repo 
+	-> Since the file is not been found in the local repo it interprets the scenario and concludes that the file has been deleted
+	-> 100644 (regular file rw-r--r--)
+
+index 0267501 (Is the SHA or index of the file fetch.txt in origin) and ...0000000 (indicating us that there is no file present here)
+
+-1 +1,3
+	-1 means Start at line 1 in the original file (before change)   
+	+1,3 Start at line 1 in the new file and it now has 3 lines
+
+- This file is created...... 
+-//	Shows the line which has been modified/replaced)
++//
++// 	These are the lines which have been updated in the remote repo
+------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**------------**---
+
+
+git reset
+----------
+	Usually used to undo the changes locally, as it moves the pointers backwards
+		-> git reset <#commit_hash>  // To delete all the commits after the referenced hash
+
+	Types of Reset
+		1. Soft Reset
+			It deletes the commits, while keeping all of the modified files staged so that it can be tracked
+			-> git reset --soft <#commit_hash>
+		2. Mixed Reset (Default)
+			It deletes the commits, and removes the object from the stage execute git add to track em but the working directory holds all the files
+			-> git reset <#commit_hash>
+		3. Hard Reset
+			It deletes the commit from the stage and the working directory with its entirety
+			-> git reset --hard <#commit_hash>
+
+Commits are deleted from the history and they are not visible in git log
+
+
+git revert (recc)
+-----------------
+	It is generally used in shared branches and adds an undo commit in the history, 	//doesn't take back the pointer
+	Unlike git revert it does save the commit history
+	
+	->  git revert <commit_hash>
+	        	// solve the merge conflicts (if any)
+	->  git revert --continue
+
+
+git stash
+---------
+	Suppose you are working on a feature, but there's an urgent bug to be fixed. Here with the help of the stash command we can temporarily save the changes in the local repository without committing which eliminates the risk of merge conflicts.
+	->  git stash
+		
+		Once done with the high priority task we need to load up the stash file
+	->  git stash list
+		This is used to list out all the files saved as stash files
+	->  git stash apply <file_name>
+		This is to revert back and load up the new changes of the file
+	->  git stash pop
+		This command is used to apply the stash and delete it from the stack
+	->  git stash drop <file_name>
+		It is used to remove a particular stash file from the memory	
+	->  git stash clear
+		Used to clear all the stash files
+
+
+
+
+
+
+
+
+
+
+
